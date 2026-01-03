@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+final class AuthController extends Controller
+{
+    public function register(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:150', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'max:72'],
+        ]);
+
+        $user = \App\Models\User::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => \Illuminate\Support\Facades\Hash::make($data['password']),
+        ]);
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ], 201);
+    }
+
+    public function login(Request $request): JsonResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        $token = auth('api')->attempt($credentials);
+
+        if ($token === false) {
+            return response()->json([
+                'message' => 'Credenciais inválidas.',
+            ], 401);
+        }
+
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'bearer',
+        ]);
+    }
+}
