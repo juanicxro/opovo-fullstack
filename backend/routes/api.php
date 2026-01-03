@@ -15,8 +15,12 @@ Route::prefix('auth')->group(function () {
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 
-Route::middleware(['auth:api', 'throttle:posts-write'])->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::post('/posts', [PostController::class, 'store']);
-    Route::put('/posts/{post}', [PostController::class, 'update']);
-    Route::delete('/posts/{post}', [PostController::class, 'destroy']);
+
+    Route::put('/posts/{post}', [PostController::class, 'update'])
+        ->middleware('can:update,post');
+
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+        ->middleware('can:delete,post');
 });

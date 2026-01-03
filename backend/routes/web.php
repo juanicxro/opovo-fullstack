@@ -1,7 +1,3 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// Web route intecionamente vazia (API-only).

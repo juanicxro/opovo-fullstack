@@ -72,15 +72,6 @@ final class PostController extends Controller
 
     public function update(Request $request, \App\Models\Post $post): JsonResponse
     {
-        /** @var \App\Models\User $user */
-        $user = auth('api')->user();
-
-        if ((int) $post->author_id !== (int) $user->id) {
-            return response()->json([
-                'message' => 'Você não tem permissão para editar este post.',
-            ], 403);
-        }
-
         $data = $request->validate([
             'title' => ['sometimes', 'required', 'string', 'max:180'],
             'content' => ['sometimes', 'required', 'string'],
@@ -104,15 +95,6 @@ final class PostController extends Controller
 
     public function destroy(\App\Models\Post $post): JsonResponse
     {
-        /** @var \App\Models\User $user */
-        $user = auth('api')->user();
-
-        if ((int) $post->author_id !== (int) $user->id) {
-            return response()->json([
-                'message' => 'Você não tem permissão para excluir este post.',
-            ], 403);
-        }
-
         $post->delete();
 
         return response()->json(null, 204);
