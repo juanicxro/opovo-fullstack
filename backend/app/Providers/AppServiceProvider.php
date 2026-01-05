@@ -13,16 +13,34 @@ final class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        RateLimiter::for('auth-login', static function (Request $request): Limit {
-            return Limit::perMinute(5)->by($request->ip());
+        RateLimiter::for('auth-login', static function (Request $request): array {
+            $ip = (string) $request->ip();
+            $email = strtolower((string) $request->input('email', ''));
+
+            return [
+                Limit::perMinute(10)->by("login:ip:{$ip}"),
+                Limit::perMinute(5)->by("login:email:{$email}"),
+            ];
         });
 
-        RateLimiter::for('auth-register', static function (Request $request): Limit {
-            return Limit::perMinute(3)->by($request->ip());
+        RateLimiter::for('auth-register', static function (Request $request): array {
+            $ip = (string) $request->ip();
+            $email = strtolower((string) $request->input('email', ''));
+
+            return [
+                Limit::perMinute(3)->by("register:ip:{$ip}"),
+                Limit::perMinute(3)->by("register:email:{$email}"),
+            ];
         });
 
         RateLimiter::for('posts-write', static function (Request $request): Limit {
-            return Limit::perMinute(30)->by($request->user()?->id ?: $request->ip());
+            $userId = $request->user('api')?->id;
+
+            $key = $userId !== null
+                ? 'posts:user:' . (string) $userId
+                : 'posts:ip:' . (string) $request->ip();
+
+            return Limit::perMinute(30)->by($key);
         });
     }
 }
