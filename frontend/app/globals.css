@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(1 0 180);
+  --foreground: oklch(0.137 0.036 258.526);
+  --muted: oklch(0.968 0.007 247.895);
+  --muted-foreground: oklch(0.555 0.041 257.44);
+  --popover: oklch(1 0 180);
+  --popover-foreground: oklch(0.137 0.036 258.526);
+  --card: oklch(1 0 180);
+  --card-foreground: oklch(0.137 0.036 258.526);
+  --border: oklch(0.929 0.013 255.532);
+  --input: oklch(0.929 0.013 255.532);
+  --primary: oklch(0.419 0.199 262.534);
+  --primary-foreground: oklch(0.984 0.003 247.859);
+  --secondary: oklch(0.968 0.007 247.895);
+  --secondary-foreground: oklch(0.208 0.04 265.727);
+  --accent: oklch(0.968 0.007 247.895);
+  --accent-foreground: oklch(0.208 0.04 265.727);
+  --destructive: oklch(0.627 0.238 27.654);
+  --destructive-foreground: oklch(0.984 0.003 247.859);
+  --ring: oklch(0.418 0.199 262.612);
+  --chart-1: oklch(0.419 0.199 262.534);
+  --chart-2: oklch(0.968 0.007 247.895);
+  --chart-3: oklch(0.968 0.007 247.895);
+  --chart-4: oklch(0.993 0.002 247.838);
+  --chart-5: oklch(0.419 0.204 262.504);
+}
+
+.dark {
+  --radius: 0.5rem;
+  --background: oklch(0.203 0.014 285.102);
+  --foreground: oklch(0.766 0.049 276.035);
+  --muted: oklch(0.286 0.023 278.46);
+  --muted-foreground: oklch(0.566 0.04 279.856);
+  --popover: oklch(0.226 0.019 280.253);
+  --popover-foreground: oklch(0.587 0.041 280.058);
+  --card: oklch(0.226 0.019 280.253);
+  --card-foreground: oklch(0.766 0.049 276.035);
+  --border: oklch(0.396 0.036 278.297);
+  --input: oklch(0.248 0.025 277.622);
+  --primary: oklch(0.867 0 180);
+  --primary-foreground: oklch(0.321 0 180);
+  --secondary: oklch(0.718 0.113 269.854);
+  --secondary-foreground: oklch(0.226 0.019 280.253);
+  --accent: oklch(0.197 0.016 280.374);
+  --accent-foreground: oklch(0.867 0 180);
+  --destructive: oklch(0.578 0.144 24.182);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --ring: oklch(0.718 0.113 269.854);
+  --chart-1: oklch(0.867 0 180);
+  --chart-2: oklch(0.718 0.113 269.854);
+  --chart-3: oklch(0.197 0.016 280.374);
+  --chart-4: oklch(0.749 0.1 270.243);
+  --chart-5: oklch(0.865 0.003 17.214);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
